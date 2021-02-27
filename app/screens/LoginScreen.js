@@ -60,8 +60,8 @@ function LoginScreen(props) {
         };
 
     return (
-        <SafeAreaView style={styles.container}>
-
+        <SafeAreaView style={styles.outercontainer}>
+            <View style={styles.container}>
             <Image source={{uri: 'https://picsum.photos/200/300/',}} 
             style={styles.logo} />
 
@@ -96,18 +96,25 @@ function LoginScreen(props) {
             <View style={styles.loginButton}>
             <Button title='Log in' onPress={handleLogin}
                             color="#841584"></Button></View>
+        </View>
         </SafeAreaView>
     );
 }
 
 const styles = StyleSheet.create({
 
-    container: {
+    outercontainer: {
         paddingTop: Platform.OS === 'android' ? 25 : 0,
         backgroundColor: 'white',
-        flex: 0.6,
-        flexDirection: 'column',
-        justifyContent: 'space-between',
+        flex: 1,
+    },
+
+    container: {
+        // paddingTop: Platform.OS === 'android' ? 25 : 0,
+        backgroundColor: 'white',
+        // flex: 1,
+        // flexDirection: 'column',
+        // justifyContent: 'space-between',
         padding: 25
     },
     title: {

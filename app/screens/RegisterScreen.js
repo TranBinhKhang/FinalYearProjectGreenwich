@@ -39,7 +39,8 @@ function RegisterScreen(props) {
         };
 
     return (
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView style={styles.outercontainer}>
+            <View style={styles.container}>
             <Image source={{uri: 'https://picsum.photos/200/300/',}} 
             style={styles.logo} />
             <Text style={styles.title}>Gemini Registration Form</Text>
@@ -76,24 +77,33 @@ function RegisterScreen(props) {
             borderColor='#841584'         
             onChangeText={text => setUserName(text)} 
             />
-            {/* <View style={styles.loginButton}> */}
+            <View style={styles.loginButton}>
             <Button title='Register account' onPress={handleRegister}
                             color="#841584"></Button>
-                            {/* </View> */}
+                            <Button title='Register test' onPress={() => console.log('this does nothing')}
+                            color="#841584"></Button>
+                            </View>
+            </View>
         </SafeAreaView>
     );
 }
 
 const styles = StyleSheet.create({
 
-    container: {
+    outercontainer: {
         paddingTop: Platform.OS === 'android' ? 25 : 0,
         backgroundColor: 'white',
-        flex: 0.6,
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-        padding: 10,
-        marginBottom: -50
+        flex: 1,
+    },
+
+    container: {
+        // paddingTop: Platform.OS === 'android' ? 25 : 0,
+        backgroundColor: 'white',
+        // flex: 0.6,
+        // flexDirection: 'column',
+        // justifyContent: 'space-between',
+        padding: 25,
+        marginBottom: 40,
     },
     title: {
         fontSize: 25,
