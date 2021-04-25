@@ -10,15 +10,14 @@ function WelcomeScreen(props) {
         source={require("./background.png")}
         >
             <View style={styles.logoContainer}>
-
-        <Image style={styles.logo} source={require("./favicon.png")}/>
-        <Text>Welcome to EnglishApp</Text>
+            <Image style={styles.logo} source={require("./logo.png")}/>
             </View>
             <View style={styles.loginButton}>
-            <Button title="Login" onPress={() => props.navigation.navigate('Login')} />
-
+            <View style={{marginBottom: 5}}>
+            <Button title="Login" color={'#841584'} onPress={() => props.navigation.navigate('Login')} />
+            </View>
             
-            <Button title="Register" onPress={() => props.navigation.navigate('Register')} />
+            <Button title="Register" color={'#841584'} onPress={() => props.navigation.navigate('Register')} />
             </View>
         </ImageBackground>
     );
@@ -33,18 +32,18 @@ const styles = StyleSheet.create({
     },
     logoContainer: {
         position: "absolute",
-        top: 10,
+        top: 80,
         alignItems: "center"
     },
     loginButton: {
         width: '50%',
         height: 70,
         justifyContent: "center",
-        backgroundColor: 'blue',
+        bottom: 20
     },
     logo:{
-        width: 80,
-        height: 80,
+        width: 180,
+        height: 180,
     },
     registerButton: {
         width: '50%',

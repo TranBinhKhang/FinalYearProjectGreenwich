@@ -11,16 +11,17 @@ import HomeScreen from '../screens/HomeScreen';
 
 const Stack = createStackNavigator();
 const AppNavigator = () => (
-    <Stack.Navigator initialRouteName="Welcome Screen">
+    <Stack.Navigator initialRouteName="Welcome Screen" screenOptions={{
+      headerTitleAlign: 'center',
+      headerStyle: { backgroundColor: '#841584' },
+      headerTintColor: 'white'
+  }}>
         <Stack.Screen name="Welcome Screen" component={WelcomeScreen} options={{
-          headerShown: false
+          headerShown: false,
+          headerStyle: { backgroundColor: '#841584' }
         }}/>
-      <Stack.Screen name="Login" component={LoginScreen} options={{
-        headerTitleAlign: 'center'
-      }}/>
-      <Stack.Screen name="Register" component={RegisterScreen} options={{
-        headerTitleAlign: 'center'
-      }}/>
+      <Stack.Screen name="Login" component={LoginScreen} />
+      <Stack.Screen name="Register" component={RegisterScreen} />
     </Stack.Navigator>
 );
 

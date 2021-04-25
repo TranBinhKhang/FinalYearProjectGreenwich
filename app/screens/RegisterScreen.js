@@ -41,9 +41,9 @@ function RegisterScreen(props) {
     return (
         <SafeAreaView style={styles.outercontainer}>
             <View style={styles.container}>
-            <Image source={{uri: 'https://picsum.photos/200/300/',}} 
+            <Image source={require("./logo.png")}
             style={styles.logo} />
-            <Text style={styles.title}>Gemini Registration Form</Text>
+            <Text style={styles.title}>Registration Form</Text>
             {isError && <Text style={styles.error}>Invalid account credentials</Text>}
             <TextInput 
             autoCapitalize="none"
@@ -80,8 +80,6 @@ function RegisterScreen(props) {
             <View style={styles.loginButton}>
             <Button title='Register account' onPress={handleRegister}
                             color="#841584"></Button>
-                            <Button title='Register test' onPress={() => console.log('this does nothing')}
-                            color="#841584"></Button>
                             </View>
             </View>
         </SafeAreaView>
@@ -106,7 +104,7 @@ const styles = StyleSheet.create({
         marginBottom: 40,
     },
     title: {
-        fontSize: 25,
+        fontSize: 20,
         fontWeight: 'bold',
         textAlign: 'center',
         color: '#841584',

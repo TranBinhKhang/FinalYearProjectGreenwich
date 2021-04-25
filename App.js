@@ -15,7 +15,10 @@ import Auth from './app/auth/auth';
 import securecache from './app/utility/securecache';
 import AppNavigator from './app/navigation/AppNavigation';
 import jwtDecode from 'jwt-decode';
-import SuccessNavigator from './app/navigation/SuccessNavigation';
+import MovieNavigator from './app/navigation/SuccessNavigation';
+import TabNavigator from './app/navigation/TabNavigation';
+import AdminTabNavigator from './app/navigation/AdminTabNavigation';
+
 
 
 export default function App() {
@@ -36,9 +39,11 @@ export default function App() {
   return ( 
   <Auth.Provider value={{user, setUser}}>
   
-  <NavigationContainer>
- {user ? <SuccessNavigator /> : <AppNavigator />} 
 
+
+  <NavigationContainer>
+  {user ? ( user.isAdmin ? <AdminTabNavigator /> : <TabNavigator /> ) : <AppNavigator />} 
+  {/* AdminTabNavigator takes user to a version of the app for admin. TabNavigator takes the user to the normal interface. AppNavigator takes user to login screen */}
   </NavigationContainer>
   
   </Auth.Provider>

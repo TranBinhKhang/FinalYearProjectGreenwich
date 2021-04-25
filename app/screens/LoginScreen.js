@@ -17,6 +17,7 @@ function LoginScreen(props) {
     const [isError, setIsError] = useState(false);
 
     const handleLogin = async () => {
+        
         const accountObj = {
             email: email,
             password: password,
@@ -32,13 +33,8 @@ function LoginScreen(props) {
             console.log(jwt.data);
             const user = jwtDecode(jwt.data);
             setUser(user);
-            try {
-                // await cache.store('token', jwt.data);
-                // const gettingdata = await cache.get('token');
-                // console.log(jwtDecode(gettingdata));        
-                await securecache.secureStore('token', jwt.data);
-                const gettingdata = await securecache.secureGet('token');
-                console.log(jwtDecode(gettingdata));       
+            try {      
+                await securecache.secureStore('token', jwt.data);   
             } catch (error) {
                 console.log(error)
             }
@@ -62,10 +58,10 @@ function LoginScreen(props) {
     return (
         <SafeAreaView style={styles.outercontainer}>
             <View style={styles.container}>
-            <Image source={{uri: 'https://picsum.photos/200/300/',}} 
+            <Image source={require("./logo.png")} 
             style={styles.logo} />
 
-            <Text style={styles.title}>Gemini Registration Form</Text>
+            <Text style={styles.title}>Login Form</Text>
             
             {isError && <Text style={styles.error}>Invalid account credentials</Text>}
 
@@ -88,7 +84,7 @@ function LoginScreen(props) {
             borderWidth={1}
             height={40}
             marginTop={10}
-            borderColor='#841584'           
+            borderColor='#7442c8'           
             onChangeText={text => setPassword(text)} 
             />
 
@@ -110,15 +106,11 @@ const styles = StyleSheet.create({
     },
 
     container: {
-        // paddingTop: Platform.OS === 'android' ? 25 : 0,
         backgroundColor: 'white',
-        // flex: 1,
-        // flexDirection: 'column',
-        // justifyContent: 'space-between',
         padding: 25
     },
     title: {
-        fontSize: 25,
+        fontSize: 20,
         fontWeight: 'bold',
         textAlign: 'center',
         color: '#841584',

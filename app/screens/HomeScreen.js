@@ -1,49 +1,114 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {Button, Text, Image, SafeAreaView, StyleSheet, TextInput, Platform, View} from 'react-native';
+import {Button, Text, Image, SafeAreaView, StyleSheet, FlatList, TextInput, Platform, View} from 'react-native';
 import jwtDecode from 'jwt-decode';
 import * as SecureStore from "expo-secure-store";
 import cache from '../utility/cache';
 import securecache from '../utility/securecache';
 import Auth from '../auth/auth';
+import Lesson from '../components/Lesson';
 
 
 
 function HomeScreen(props) {
-    const { user, setUser } = useContext(Auth);
+    const { user } = useContext(Auth);
+    const [lessonData, setLessonData] = useState();
+    const [completedLesson, setCompletedLesson] = useState();
 
-    const logout = async () => {
-        setUser(null);
-        await SecureStore.deleteItemAsync('token');
+    const fetchCompletedLesson = {
+        userId: user._id,
+    }
+
+    const fetchData = async () => {
+      await console.log('blahblahblah' + completedLesson[0]);
+    }
+
+    const compareData = async () => {
+        // for (i = 0; i < completedLesson.length; i++) {
+        
+        //     if (lessonData.some(lesson => lesson._id == completedLesson[i])) return console.log('blahblahblah') 
+        
+        // }
+        console.log('mr. blah')
+        
+    }
+
+    useEffect(() => {
+
+         axios.get("http://192.168.1.142:4000/api/lesson")
+        .then(response => {setLessonData(response.data)});
+
+         axios.post("http://192.168.1.142:4000/api/completedlessonlist", fetchCompletedLesson)
+        .then(response => {setCompletedLesson(response.data)});
+
+
+
+      }, []);
+      const test = async () => {
+        console.log(lessonData);
+        console.log(completedLesson);
     }
 
     return (
-        <SafeAreaView style={styles.outercontainer}>
-            <View style={styles.container}>
+        <React.Fragment>
+        <View style={{
+            backgroundColor: 'white'
+        }}>
+        <Text>Hello, {user.userName}. Have fun studying.</Text>
+        </View>
+        <SafeAreaView style={styles.flexcontainer}>
+            {/* <View style={styles.container}>
             <Text>Hello, {user.userName}. Have fun studying.</Text>
-            </View>
-            <Button title="log out" onPress={logout} />
-            
+            </View> */}
+           
+            {/* <Lesson title='Noun' image={require("./background.png")} />
+            <Lesson title='Noun' image={require("./background.png")} />
+            <Lesson title='Noun' image={require("./background.png")} />
+            <Lesson title='Noun' image={require("./background.png")} /> */}
+
+        <FlatList
+          data={lessonData}
+          numColumns={2}
+          columnWrapperStyle={styles.flexcontainer}
+          keyExtractor={(lesson) => lesson._id.toString()}
+          renderItem={({ item }) => (
+            <Lesson
+              title={item.name}
+              onPress={() => props.navigation.navigate('Lesson', item)}
+            />
+          )}
+        />
         </SafeAreaView>
+        </React.Fragment>
     );
 }
 
 const styles = StyleSheet.create({
 
-    outercontainer: {
-        paddingTop: Platform.OS === 'android' ? 25 : 0,
+    flexcontainer: {
         backgroundColor: 'white',
         flex: 1,
+        flexDirection: 'row',
+        alignItems: 'flex-start',
+        justifyContent: 'space-evenly',
+        flexShrink: 0,
+        flexWrap: 'wrap',
+        padding: -10,
+        marginTop: 10
+
     },
 
     container: {
         // paddingTop: Platform.OS === 'android' ? 25 : 0,
         backgroundColor: 'white',
+        marginTop: -10,
+        flex: 1,
+        flexDirection: 'row',
         // flex: 0.6,
         // flexDirection: 'column',
-        // justifyContent: 'space-between',
-        padding: 25
+        
+        padding: 20
     },
     title: {
         fontSize: 25,
