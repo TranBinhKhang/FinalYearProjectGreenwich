@@ -395,7 +395,7 @@ async function addUserTest(email, password, userName){ //this is a test function
             if (!emailExist && !(validation.error)) 
             {
             const result = await user.save();
-            const token = jwt.sign({ _id: user._id, email: user.email, userName: user.userName, isAdmin: user.isAdmin }, config.get('jwtPrivateKey'));
+            const token = jwt.sign({ _id: user._id, email: user.email, userName: user.userName, isAdmin: user.isAdmin, isBanned: userExist.isBanned }, config.get('jwtPrivateKey'));
             res
             .header('x-auth-token', token)
             .header('access-control-expose-headers', 'x-auth-token').send({
@@ -427,7 +427,7 @@ async function addUserTest(email, password, userName){ //this is a test function
         if (!userExist) return res.status(400).send('Invalid email or password');
         const valid = await bcrypt.compare(req.body.password, userExist.password);
         if (!valid) return res.status(400).send('Invalid email or password');
-        const token = jwt.sign({ _id: userExist._id, email: userExist.email, userName: userExist.userName, isAdmin: userExist.isAdmin }, config.get('jwtPrivateKey'));
+        const token = jwt.sign({ _id: userExist._id, email: userExist.email, userName: userExist.userName, isAdmin: userExist.isAdmin, isBanned: userExist.isBanned }, config.get('jwtPrivateKey'));
         res.send(token);
     });
 
@@ -976,6 +976,17 @@ app.post("/api/me", async (req, res) => { //this was originally going to require
     res.send(user);
     await user.save();
 
+}
+)
+
+app.post('/api/banstatus', async (req, res) =>{
+
+    const user = await User.findById(req.body._id);
+    
+    if (user.isBanned){
+        res.send('banned');
+    }
+    else res.send('not banned')
 }
 )
     

@@ -31,6 +31,8 @@ function LessonScreen({route, navigation}) {
 
     const [commentReply, setCommentReply] = useState();
 
+    const [isBanned, setIsBanned] = useState(false);
+
     // const [clipData, setClipData] = useState();
     // const lessoninfo = route.params;
     // const [isEmpty, setIsEmpty] = useState(false);
@@ -79,6 +81,7 @@ function LessonScreen({route, navigation}) {
     }
 
     const handleNewComment = async () => {
+        if (isBanned) return showBannedAlert(); //prevent banned user from commenting
         await axios.post('http://192.168.1.142:4000/api/postcomment', newComment);
         await axios
         .post("http://192.168.1.142:4000/api/comment", lesson)
@@ -94,11 +97,12 @@ function LessonScreen({route, navigation}) {
             userId: user._id,
             comment: commentReply
         }
-
+        if (isBanned) return showBannedAlert();
         await axios.post('http://192.168.1.142:4000/api/replycomment', replyComment);
         await axios
         .post("http://192.168.1.142:4000/api/comment", lesson)
         .then(response => {setComment(response.data); comment.toString()});
+         
     }
 
     const handleDeleteComment = async (item) => {
@@ -136,9 +140,32 @@ function LessonScreen({route, navigation}) {
         .then(response => {setComment(response.data); comment.toString()});
     }
 
+    const getBanStatus = async () => {
+        const userId = {
+            _id: user._id
+        }
+        await axios
+        .post("http://192.168.1.142:4000/api/banstatus", userId)
+        .then(response => response.data === 'banned' ? setIsBanned(true) : setIsBanned(false));
+    }
+
     useEffect(() => {
         fetchComment();
+        getBanStatus();
       }, []);
+
+      const showBannedAlert = () =>
+        Alert.alert(
+          "Alert",
+          "You are banned from commenting. The ban is permanent. Contract the admin at blahblah@gmail.com to appeal",
+        [
+        {
+          text: "Ok",
+          style: "cancel",
+        },
+        ],
+      );
+
 
     return (
         <View style={styles.outercontainer}>
