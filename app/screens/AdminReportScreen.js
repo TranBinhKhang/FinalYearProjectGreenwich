@@ -47,7 +47,7 @@ function AdminReportScreen({route, navigation}) {
 
         const dismissReport = {
             reportId: item._id,
-            lessonId: item.lessonId._id,
+            lessonId: item.lessonId,
             commentId: item.commentId
         }
         await axios.post('http://192.168.1.142:4000/api/dismissreport', dismissReport);

@@ -433,6 +433,7 @@ async function addUserTest(email, password, userName){ //this is a test function
 
   //============================FETCHING DATA===============================//
 
+  //Fetch comment
   app.post("/api/comment", async (req, res) => { //very straightfoward, it just send all comments from a lesson to frontend
     try {
     const comment = await Lesson.findById(req.body._id).select('comment')
