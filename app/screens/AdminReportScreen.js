@@ -18,7 +18,7 @@ import { ScrollView, TouchableWithoutFeedback } from 'react-native-gesture-handl
 import ReportComment from '../components/ReportComment';
 
 
-const homenetwork = 'http://192.168.1.142:4000/api/clips';
+const homenetwork = 'http://192.168.43.218:4000/api/clips';
 
 function AdminReportScreen({route, navigation}) {
     const { user, setUser } = useContext(Auth);
@@ -50,7 +50,7 @@ function AdminReportScreen({route, navigation}) {
             lessonId: item.lessonId,
             commentId: item.commentId
         }
-        await axios.post('http://192.168.1.142:4000/api/dismissreport', dismissReport);
+        await axios.post('http://192.168.43.218:4000/api/dismissreport', dismissReport);
         fetchReport();
     }
 
@@ -63,17 +63,17 @@ function AdminReportScreen({route, navigation}) {
     //         commentId: item2._id,
     //         comment: item2.comment
     //     }
-    //     await axios.post('http://192.168.1.142:4000/api/postreport', replyReport);
+    //     await axios.post('http://192.168.43.218:4000/api/postreport', replyReport);
     //     await axios
-    //     .post("http://192.168.1.142:4000/api/comment", lesson)
+    //     .post("http://192.168.43.218:4000/api/comment", lesson)
     //     .then(response => {setComment(response.data); comment.toString()});
 
     // }
 
     // const handleNewComment = async () => {
-    //     await axios.post('http://192.168.1.142:4000/api/postcomment', newComment);
+    //     await axios.post('http://192.168.43.218:4000/api/postcomment', newComment);
     //     await axios
-    //     .post("http://192.168.1.142:4000/api/comment", lesson)
+    //     .post("http://192.168.43.218:4000/api/comment", lesson)
     //     .then(response => {setComment(response.data); comment.toString()});
     // }
 
@@ -87,9 +87,9 @@ function AdminReportScreen({route, navigation}) {
     //         comment: commentReply
     //     }
 
-    //     await axios.post('http://192.168.1.142:4000/api/replycomment', replyComment);
+    //     await axios.post('http://192.168.43.218:4000/api/replycomment', replyComment);
     //     await axios
-    //     .post("http://192.168.1.142:4000/api/comment", lesson)
+    //     .post("http://192.168.43.218:4000/api/comment", lesson)
     //     .then(response => {setComment(response.data); comment.toString()});
     // }
 
@@ -99,7 +99,7 @@ function AdminReportScreen({route, navigation}) {
             commentId: item.commentId,
         }
 
-        await axios.post('http://192.168.1.142:4000/api/deletemaincomment', mainDelete);
+        await axios.post('http://192.168.43.218:4000/api/deletemaincomment', mainDelete);
         handleDismiss(item);
         fetchReport();
     }
@@ -111,7 +111,7 @@ function AdminReportScreen({route, navigation}) {
             replyId: item.commentId
         }
 
-        await axios.post('http://192.168.1.142:4000/api/deletereply', replyDelete);
+        await axios.post('http://192.168.43.218:4000/api/deletereply', replyDelete);
         handleDismiss(item);
         fetchReport();
     }
@@ -119,7 +119,7 @@ function AdminReportScreen({route, navigation}) {
 
     const fetchReport = async () => {
        await axios
-        .get("http://192.168.1.142:4000/api/report")
+        .get("http://192.168.43.218:4000/api/report")
         .then(response => {setComment(response.data); comment.toString()});
     }
 
@@ -131,7 +131,7 @@ function AdminReportScreen({route, navigation}) {
           const user = {
               _id: item.userId._id
           }
-          await axios.post('http://192.168.1.142:4000/api/ban', user);
+          await axios.post('http://192.168.43.218:4000/api/ban', user);
           fetchReport();
       }
 

@@ -15,9 +15,10 @@ import securecache from '../utility/securecache';
 import Auth from '../auth/auth';
 import * as FileSystem from 'expo-file-system';
 import Lesson from '../components/Lesson';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 
-const homenetwork = 'http://192.168.1.142:4000/api/clips';
+const homenetwork = 'http://192.168.43.218:4000/api/clips';
 
 function AdminClipDetailScreen({route, navigation}) {
     const video = React.useRef(null);
@@ -32,7 +33,8 @@ function AdminClipDetailScreen({route, navigation}) {
     const [itemIndex, setItemIndex] = useState('0')
     const clipData = route.params;
     const [clipCurrentLesson, setClipCurrentLesson] = useState([]); //get the current lesson of the clip in the database
-    const [lessonChanged, setLessonChanged] = useState(false)
+    const [lessonChanged, setLessonChanged] = useState(false);
+    const [spinner, setSpinner] = useState(false);
 
     const [newClip, setNewClip] = useState({
       _id: route.params._id,
@@ -72,13 +74,13 @@ function AdminClipDetailScreen({route, navigation}) {
     useEffect(() => {
         getPermission();
         axios
-          .get("http://192.168.1.142:4000/api/lesson")
+          .get("http://192.168.43.218:4000/api/lesson")
           .then(response => {setLessonData(response.data)});
       const clipInfo = {
         _id: clipData._id
       }
           axios
-          .post("http://192.168.1.142:4000/api/clipcurrentlesson", clipInfo)
+          .post("http://192.168.43.218:4000/api/clipcurrentlesson", clipInfo)
           .then(response => {setClipCurrentLesson(response.data)});
         
       }, []);
@@ -98,8 +100,9 @@ function AdminClipDetailScreen({route, navigation}) {
         console.log(base64);
     
         if (!result.cancelled) {
+          setSpinner(true);
           setFile(base64);
-
+          setSpinner(true);
           let uploaddata = {
             file: 'data:video/mp4;base64,' + base64,
             upload_preset: "iaixh6ou",
@@ -109,7 +112,8 @@ function AdminClipDetailScreen({route, navigation}) {
             resource_type: 'video'
           })
           .then(res => {console.log(res.data.secure_url);
-                        setNewClip({ _id: clipData._id, data: res.data.secure_url, clipName: clipName, content: content, lessonId: lessonId})})
+                        setNewClip({ _id: clipData._id, data: res.data.secure_url, clipName: clipName, content: content, lessonId: lessonId});
+                      setSpinner(false)})
           .catch(err =>{
             console.log(err)
         });
@@ -118,8 +122,8 @@ function AdminClipDetailScreen({route, navigation}) {
 
       const uploadVideo = async () => {
         try {
-        setNewClip({ _id: clipData._id,clipName: clipName, content: content, lessonId: lessonId})
-        await axios.post('http://192.168.1.142:4000/api/updateclip', newClip);
+        setNewClip({ _id: clipData._id, clipName: clipName, content: content, lessonId: lessonId})
+        await axios.post('http://192.168.43.218:4000/api/updateclip', newClip);
         showSuccessAlert()
       }catch {console.log('ERROR')}
         
@@ -129,7 +133,7 @@ function AdminClipDetailScreen({route, navigation}) {
         const deleteTarget = {
             _id: route.params._id
         }
-        await axios.post('http://192.168.1.142:4000/api/deleteclip', deleteTarget);
+        await axios.post('http://192.168.43.218:4000/api/deleteclip', deleteTarget);
         navigation.push('Admin Clip List');
       };
 
@@ -161,11 +165,18 @@ function AdminClipDetailScreen({route, navigation}) {
 
     return (
         <SafeAreaView style={styles.outercontainer}>
+        <Spinner
+            visible={spinner}
+            textContent={'Uploading. This will take a while...'}
+            textStyle={{
+              color: '#FFF'
+            }}
+            />
             <Video
                 ref={video}
                 style={styles.video}
                 source={{
-                uri: clipData.data,
+                uri: (newClip.data !== 'data' && newClip.data) ? newClip.data : 'https://res.cloudinary.com/daekmobzf/video/upload/v1618218015/yt1s.com_-_video_placeholder_v144P_sgs82l.mp4',
 		          overrideFileExtensionAndroid: 'true',
                 }}
                 useNativeControls

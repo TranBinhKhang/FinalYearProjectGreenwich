@@ -19,7 +19,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 
 import Spinner from 'react-native-loading-spinner-overlay';
 
-const homenetwork = 'http://192.168.1.142:4000/api/clips';
+const homenetwork = 'http://192.168.43.218:4000/api/clips';
 
 function AdminLessonDetailScreen({route, navigation}) {
     const video = React.useRef(null);
@@ -51,10 +51,10 @@ function AdminLessonDetailScreen({route, navigation}) {
 
     useEffect(() => {
       axios
-        .post("http://192.168.1.142:4000/api/fetchlessonclip", fetchLesson)
+        .post("http://192.168.43.218:4000/api/fetchlessonclip", fetchLesson)
         .then(response => {setLessonData(response.data)});
       axios
-        .get("http://192.168.1.142:4000/api/nolessonlist")
+        .get("http://192.168.43.218:4000/api/nolessonlist")
         .then(response => {setEmptyLesson(response.data)});
     }, []);
 
@@ -106,7 +106,7 @@ function AdminLessonDetailScreen({route, navigation}) {
               _id: LessonData._id,
               image: res.data.secure_url
             }
-            axios.post('http://192.168.1.142:4000/api/updatemoviepicture', imagedata);
+            axios.post('http://192.168.43.218:4000/api/updatemoviepicture', imagedata);
             setSpinner(false);
         }).catch(err =>{
 console.log(err)
@@ -117,7 +117,7 @@ console.log(err)
 
       const updateLesson = async () => {
         setUpdatedLesson({ _id: LessonData._id, name: name, content: content})
-        await axios.post('http://192.168.1.142:4000/api/updatelesson', updatedLesson);
+        await axios.post('http://192.168.43.218:4000/api/updatelesson', updatedLesson);
         showSuccessAlert();
       };
 
@@ -125,7 +125,7 @@ console.log(err)
         const deleteTarget = {
             _id: LessonData._id
         }
-        await axios.post('http://192.168.1.142:4000/api/deletelesson', deleteTarget);
+        await axios.post('http://192.168.43.218:4000/api/deletelesson', deleteTarget);
         navigation.push('Admin Lesson List');
       };
 
@@ -134,9 +134,9 @@ console.log(err)
             _id: itemValue, //_id is the id of the clip we need to associate with this lesson
             lessonId: LessonData._id //this is the id of the current lesson.
         }
-        await axios.post('http://192.168.1.142:4000/api/addcliplesson', newLesson);
+        await axios.post('http://192.168.43.218:4000/api/addcliplesson', newLesson);
         await axios
-        .post("http://192.168.1.142:4000/api/fetchlessonclip", fetchLesson)
+        .post("http://192.168.43.218:4000/api/fetchlessonclip", fetchLesson)
         .then(response => {setLessonData(response.data)});
       };
 
@@ -145,9 +145,9 @@ console.log(err)
         const removeLesson = {
             _id: item._id //this is the id of the clip that will have the reference to this lesson removed in the database
         }
-        await axios.post('http://192.168.1.142:4000/api/removecliplesson', removeLesson);
+        await axios.post('http://192.168.43.218:4000/api/removecliplesson', removeLesson);
         await axios
-        .post("http://192.168.1.142:4000/api/fetchlessonclip", fetchLesson)
+        .post("http://192.168.43.218:4000/api/fetchlessonclip", fetchLesson)
         .then(response => {setLessonData(response.data)});
       };
 

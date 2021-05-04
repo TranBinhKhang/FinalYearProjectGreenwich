@@ -22,7 +22,7 @@ function AdminTestListScreen(props) {
 
     const fetchLesson = async () => {
         axios
-          .get("http://192.168.1.142:4000/api/lesson")
+          .get("http://192.168.43.218:4000/api/lesson")
           .then(response => {setTestData(response.data);});
     }
     

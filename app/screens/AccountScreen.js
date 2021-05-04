@@ -42,7 +42,7 @@ function AccountScreen(props) {
       }
     
       const fetchInfo = async () => {
-        await axios.post("http://192.168.1.142:4000/api/me", userId).then(response => { //this should be done with token, but I'm too lazy for that
+        await axios.post("http://192.168.43.218:4000/api/me", userId).then(response => { //this should be done with token, but I'm too lazy for that
         setUserInfo(response.data)
   })
       }
@@ -61,13 +61,13 @@ function AccountScreen(props) {
             _id: userInfo._id,
             movieId: item._id
         }
-        await axios.post("http://192.168.1.142:4000/api/removemovie", removeMovie);
+        await axios.post("http://192.168.43.218:4000/api/removemovie", removeMovie);
         fetchInfo();
       }
 
       const handleUpdateUser = async () => {
 
-        await axios.post("http://192.168.1.142:4000/api/updateuser", updateInfo);
+        await axios.post("http://192.168.43.218:4000/api/updateuser", updateInfo);
         fetchInfo();
       }
 

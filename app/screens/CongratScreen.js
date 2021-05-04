@@ -17,7 +17,7 @@ import Auth from '../auth/auth';
 import * as FileSystem from 'expo-file-system';
 
 
-const homenetwork = 'http://192.168.1.142:4000/api/clips';
+const homenetwork = 'http://192.168.43.218:4000/api/clips';
 
 function CongratScreen({route, navigation}) {
     const { user, setUser } = useContext(Auth);
@@ -34,7 +34,7 @@ function CongratScreen({route, navigation}) {
 
     const checkIsAlreadyCompleted = async () => {
         await axios
-          .post("http://192.168.1.142:4000/api/completelesson", completeLesson)
+          .post("http://192.168.43.218:4000/api/completelesson", completeLesson)
           .then(response => {
               if (response.data) {setIsAlreadyDone(true); console.log('already completed')}
               else {setIsAlreadyDone(false); console.log(response)}

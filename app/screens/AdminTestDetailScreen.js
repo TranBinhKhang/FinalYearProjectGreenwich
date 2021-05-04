@@ -20,7 +20,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 
 import Spinner from 'react-native-loading-spinner-overlay';
 
-const homenetwork = 'http://192.168.1.142:4000/api/clips';
+const homenetwork = 'http://192.168.43.218:4000/api/clips';
 
 function AdminTestDetailScreen({route}) {
     // const [data, setData] = useState('null');
@@ -49,7 +49,7 @@ function AdminTestDetailScreen({route}) {
 
   const getTest = async () => {
     axios
-    .post("http://192.168.1.142:4000/api/lessontest", fetchTest)
+    .post("http://192.168.43.218:4000/api/lessontest", fetchTest)
     .then(response => {setTestData(response.data);
       setQuestionNumber(response.data.length);
 
@@ -82,7 +82,7 @@ function AdminTestDetailScreen({route}) {
         tests: testData
       }
 
-      axios.post("http://192.168.1.142:4000/api/updatetest", updatelesson).then(() => console.log('saved'));
+      axios.post("http://192.168.43.218:4000/api/updatetest", updatelesson).then(() => console.log('saved'));
       showSuccessAlert()
     }
 

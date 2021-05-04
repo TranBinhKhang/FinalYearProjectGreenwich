@@ -36,10 +36,10 @@ function HomeScreen(props) {
 
     useEffect(() => {
 
-         axios.get("http://192.168.1.142:4000/api/lesson")
+         axios.get("http://192.168.43.218:4000/api/lesson")
         .then(response => {setLessonData(response.data)});
 
-         axios.post("http://192.168.1.142:4000/api/completedlessonlist", fetchCompletedLesson)
+         axios.post("http://192.168.43.218:4000/api/completedlessonlist", fetchCompletedLesson)
         .then(response => {setCompletedLesson(response.data)});
 
 

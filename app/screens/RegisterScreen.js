@@ -6,7 +6,7 @@ import cache from '../utility/cache';
 import securecache from '../utility/securecache';
 import Auth from '../auth/auth';
 
-const webaddress = 'http://192.168.1.142:4000';
+const webaddress = 'http://192.168.43.218:4000';
 const browseraddress = 'http://localhost:19006/'
 
 function RegisterScreen(props) {
@@ -23,7 +23,7 @@ function RegisterScreen(props) {
             userName: userName
           };
 
-          const stuff = await axios.post('http://192.168.1.142:4000/api/register', accountObj)
+          const stuff = await axios.post('http://192.168.43.218:4000/api/register', accountObj)
           .then(setIsError(false))
           .catch(err =>{
             setIsError(true)

@@ -15,7 +15,7 @@ import Auth from '../auth/auth';
 import * as FileSystem from 'expo-file-system';
 
 
-const homenetwork = 'http://192.168.1.142:4000/api/clips';
+const homenetwork = 'http://192.168.43.218:4000/api/clips';
 
 function LessonScreen({route, navigation}) {
     const { user, setUser } = useContext(Auth);
@@ -37,7 +37,7 @@ function LessonScreen({route, navigation}) {
             lessonId: lessoninfo._id
         }
         axios
-          .post("http://192.168.1.142:4000/api/clips", fetchMovie)
+          .post("http://192.168.43.218:4000/api/clips", fetchMovie)
           .then(response => {setClipData(response.data); 
             setClipNumber(response.data.length); 
             console.log(response.data)

@@ -20,7 +20,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 import Spinner from 'react-native-loading-spinner-overlay';
 
 
-const homenetwork = 'http://192.168.1.142:4000/api/clips';
+const homenetwork = 'http://192.168.43.218:4000/api/clips';
 
 function AdminAddMovieScreen({route, navigation}) {
     const video = React.useRef(null);
@@ -65,10 +65,10 @@ function AdminAddMovieScreen({route, navigation}) {
 
       getPermission();
       // axios
-      //   .post("http://192.168.1.142:4000/api/fetchmovieclip", fetchMovie)
+      //   .post("http://192.168.43.218:4000/api/fetchmovieclip", fetchMovie)
       //   .then(response => {setClipData(response.data)});
       axios
-        .get("http://192.168.1.142:4000/api/cliplist")
+        .get("http://192.168.43.218:4000/api/cliplist")
         .then(response => {setAllClips(response.data)});
     }, []);
 
@@ -142,7 +142,7 @@ function AdminAddMovieScreen({route, navigation}) {
 
         setNewMovie({ movieName: movieName, desc: desc, genre: genre, image: image, clips: duplicate});
 
-        await axios.post('http://192.168.1.142:4000/api/uploadmovie', newMovie);
+        await axios.post('http://192.168.43.218:4000/api/uploadmovie', newMovie);
         showSuccessAlert();
       };
 
@@ -150,7 +150,7 @@ function AdminAddMovieScreen({route, navigation}) {
       //   const deleteTarget = {
       //       _id: movieData._id
       //   }
-      //   await axios.post('http://192.168.1.142:4000/api/deletemovie', deleteTarget);
+      //   await axios.post('http://192.168.43.218:4000/api/deletemovie', deleteTarget);
       //   navigation.push('Admin Movie List');
       // };
 

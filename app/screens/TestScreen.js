@@ -55,7 +55,7 @@ function TestScreen({route, navigation}) {
 
     useEffect(() => {
         axios
-          .post("http://192.168.1.142:4000/api/lessontest", lesson)
+          .post("http://192.168.43.218:4000/api/lessontest", lesson)
           .then(response => {setTestData(response.data); setQuestionNumber(response.data.length)});
       }, []);
 

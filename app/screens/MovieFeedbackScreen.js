@@ -19,7 +19,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 
 import Spinner from 'react-native-loading-spinner-overlay';
 
-const homenetwork = 'http://192.168.1.142:4000/api/clips';
+const homenetwork = 'http://192.168.43.218:4000/api/clips';
 
 function MovieDetailScreen({route, navigation}) {
     const { user, setUser } = useContext(Auth);
@@ -40,7 +40,7 @@ function MovieDetailScreen({route, navigation}) {
   }
 
   checkIsAdded = async () => {
-    axios.post("http://192.168.1.142:4000/api/getusermovie", movieToAdd).then(response => { //this should be done with token, but I'm too lazy for that
+    axios.post("http://192.168.43.218:4000/api/getusermovie", movieToAdd).then(response => { //this should be done with token, but I'm too lazy for that
           if (response.data.some(movie => movie == movieData._id)) setMovieAdded(true);
           else if (response.data.some(movie => movie !== movieData._id)) setMovieAdded(false);
     })
@@ -49,7 +49,7 @@ function MovieDetailScreen({route, navigation}) {
     useEffect(() => {
       checkIsAdded()
        axios
-          .post("http://192.168.1.142:4000/api/fetchmovielesson", fetchMovieLesson)
+          .post("http://192.168.43.218:4000/api/fetchmovielesson", fetchMovieLesson)
           .then(response => {setMovieLesson(response.data)});
 
        
@@ -58,14 +58,14 @@ function MovieDetailScreen({route, navigation}) {
 
     const handleAddMovie = async () => {
       
-      await axios.post("http://192.168.1.142:4000/api/addmovie", movieToAdd);
+      await axios.post("http://192.168.43.218:4000/api/addmovie", movieToAdd);
 
       checkIsAdded()
     }
 
     const handleRemoveMovie = async () => {
       
-      await axios.post("http://192.168.1.142:4000/api/removemovie", movieToAdd);
+      await axios.post("http://192.168.43.218:4000/api/removemovie", movieToAdd);
 
       checkIsAdded()
     }

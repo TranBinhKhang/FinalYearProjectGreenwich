@@ -26,7 +26,7 @@ function MovieListScreen(props) {
 
     const fetchMovie = async () => {
         axios
-          .get("http://192.168.1.142:4000/api/movielist")
+          .get("http://192.168.43.218:4000/api/movielist")
           .then(response => {
               setMovieData(response.data);
 
@@ -54,14 +54,14 @@ function MovieListScreen(props) {
 
         if (genreRef.current === 'reset') {
             return axios
-            .get("http://192.168.1.142:4000/api/movielist")
+            .get("http://192.168.43.218:4000/api/movielist")
             .then(response => {setMovieData(response.data);});
         }
 
         const filtergenre = {
             genre: genreRef.current
         }
-        await axios.post("http://192.168.1.142:4000/api/moviefilter", filtergenre)
+        await axios.post("http://192.168.43.218:4000/api/moviefilter", filtergenre)
         .then(response => setMovieData(response.data));
     }
     

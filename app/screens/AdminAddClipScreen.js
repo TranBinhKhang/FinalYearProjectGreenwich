@@ -18,7 +18,7 @@ import Lesson from '../components/Lesson';
 
 import Spinner from 'react-native-loading-spinner-overlay';
 
-const homenetwork = 'http://192.168.1.142:4000/api/clips';
+const homenetwork = 'http://192.168.43.218:4000/api/clips';
 
 function AdminAddClipScreen({route}) {
     const video = React.useRef(null);
@@ -79,7 +79,7 @@ function AdminAddClipScreen({route}) {
     useEffect(() => {
         getPermission();
         axios
-          .get("http://192.168.1.142:4000/api/lesson")
+          .get("http://192.168.43.218:4000/api/lesson")
           .then(response => {setLessonData(response.data)});
       }, []);
 
@@ -124,7 +124,7 @@ function AdminAddClipScreen({route}) {
       const uploadVideo = async () => {
 
         try {
-        await axios.post('http://192.168.1.142:4000/api/uploadclip', newClip); showSuccessAlert()}
+        await axios.post('http://192.168.43.218:4000/api/uploadclip', newClip); showSuccessAlert()}
         catch{
           console.log('Something went wrong')
         }

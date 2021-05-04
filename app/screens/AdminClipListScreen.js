@@ -19,7 +19,7 @@ function AdminClipListScreen(props) {
     const [clipData, setClipData] = useState();
     useEffect(() => {
         axios
-          .get("http://192.168.1.142:4000/api/cliplist")
+          .get("http://192.168.43.218:4000/api/cliplist")
           .then(response => {setClipData(response.data); console.log(response.data); console.log(response.data[5].lessonId.name)});
       }, []);
     return (

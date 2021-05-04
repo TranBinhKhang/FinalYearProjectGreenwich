@@ -17,7 +17,7 @@ import * as FileSystem from 'expo-file-system';
 import { ScrollView, TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
 
-const homenetwork = 'http://192.168.1.142:4000/api/clips';
+const homenetwork = 'http://192.168.43.218:4000/api/clips';
 
 function LessonScreen({route, navigation}) {
     const { user, setUser } = useContext(Auth);
@@ -55,9 +55,9 @@ function LessonScreen({route, navigation}) {
             isReply: false, //comments and replies to comments are stored separately, but their reports are sent to the same table. This key value pair is used to distinguish between comments and replies in the database
             parentId: null, //this is necessary to delete replies in report. But it is not necessary here
         }
-        await axios.post('http://192.168.1.142:4000/api/postreport', commentReport);
+        await axios.post('http://192.168.43.218:4000/api/postreport', commentReport);
         await axios
-        .post("http://192.168.1.142:4000/api/comment", lesson)
+        .post("http://192.168.43.218:4000/api/comment", lesson)
         .then(response => {setComment(response.data); comment.toString()});
 
     }
@@ -73,18 +73,18 @@ function LessonScreen({route, navigation}) {
             comment: item2.comment,
             isReply: true,
         }
-        await axios.post('http://192.168.1.142:4000/api/postreport', replyReport);
+        await axios.post('http://192.168.43.218:4000/api/postreport', replyReport);
         await axios
-        .post("http://192.168.1.142:4000/api/comment", lesson)
+        .post("http://192.168.43.218:4000/api/comment", lesson)
         .then(response => {setComment(response.data); comment.toString()});
 
     }
 
     const handleNewComment = async () => {
         if (isBanned) return showBannedAlert(); //prevent banned user from commenting
-        await axios.post('http://192.168.1.142:4000/api/postcomment', newComment);
+        await axios.post('http://192.168.43.218:4000/api/postcomment', newComment);
         await axios
-        .post("http://192.168.1.142:4000/api/comment", lesson)
+        .post("http://192.168.43.218:4000/api/comment", lesson)
         .then(response => {setComment(response.data); comment.toString()});
     }
 
@@ -98,9 +98,9 @@ function LessonScreen({route, navigation}) {
             comment: commentReply
         }
         if (isBanned) return showBannedAlert();
-        await axios.post('http://192.168.1.142:4000/api/replycomment', replyComment);
+        await axios.post('http://192.168.43.218:4000/api/replycomment', replyComment);
         await axios
-        .post("http://192.168.1.142:4000/api/comment", lesson)
+        .post("http://192.168.43.218:4000/api/comment", lesson)
         .then(response => {setComment(response.data); comment.toString()});
          
     }
@@ -111,9 +111,9 @@ function LessonScreen({route, navigation}) {
             commentId: item._id,
         }
 
-        await axios.post('http://192.168.1.142:4000/api/deletemaincomment', mainDelete);
+        await axios.post('http://192.168.43.218:4000/api/deletemaincomment', mainDelete);
         await axios
-        .post("http://192.168.1.142:4000/api/comment", lesson)
+        .post("http://192.168.43.218:4000/api/comment", lesson)
         .then(response => {setComment(response.data); comment.toString()});
     }
 
@@ -124,9 +124,9 @@ function LessonScreen({route, navigation}) {
             replyId: item2._id
         }
 
-        await axios.post('http://192.168.1.142:4000/api/deletereply', replyDelete);
+        await axios.post('http://192.168.43.218:4000/api/deletereply', replyDelete);
         await axios
-        .post("http://192.168.1.142:4000/api/comment", lesson)
+        .post("http://192.168.43.218:4000/api/comment", lesson)
         .then(response => {setComment(response.data); comment.toString()});
     }
 
@@ -136,7 +136,7 @@ function LessonScreen({route, navigation}) {
 
     const fetchComment = async () => {
        await axios
-        .post("http://192.168.1.142:4000/api/comment", lesson)
+        .post("http://192.168.43.218:4000/api/comment", lesson)
         .then(response => {setComment(response.data); comment.toString()});
     }
 
@@ -145,7 +145,7 @@ function LessonScreen({route, navigation}) {
             _id: user._id
         }
         await axios
-        .post("http://192.168.1.142:4000/api/banstatus", userId)
+        .post("http://192.168.43.218:4000/api/banstatus", userId)
         .then(response => response.data === 'banned' ? setIsBanned(true) : setIsBanned(false));
     }
 

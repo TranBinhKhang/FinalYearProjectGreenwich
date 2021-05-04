@@ -23,7 +23,7 @@ function LoginScreen(props) {
             password: password,
           };
 
-          const jwt = await axios.post('http://192.168.1.142:4000/api/auth', accountObj)
+          const jwt = await axios.post('http://192.168.43.218:4000/api/auth', accountObj)
           .then(setIsError(false))
           .catch(err =>{
             setIsError(true)

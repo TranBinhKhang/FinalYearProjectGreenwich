@@ -20,7 +20,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 import Spinner from 'react-native-loading-spinner-overlay';
 
 
-const homenetwork = 'http://192.168.1.142:4000/api/clips';
+const homenetwork = 'http://192.168.43.218:4000/api/clips';
 
 function AdminAddLessonScreen({route, navigation}) {
     const video = React.useRef(null);
@@ -55,10 +55,10 @@ function AdminAddLessonScreen({route, navigation}) {
 
     useEffect(() => {
       // axios
-      //   .post("http://192.168.1.142:4000/api/fetchmovieclip", fetchMovie)
+      //   .post("http://192.168.43.218:4000/api/fetchmovieclip", fetchMovie)
       //   .then(response => {setClipData(response.data)});
       axios
-      .get("http://192.168.1.142:4000/api/nolessonlist")
+      .get("http://192.168.43.218:4000/api/nolessonlist")
       .then(response => {setEmptyLesson(response.data)});
     }, []);
 
@@ -136,7 +136,7 @@ function AdminAddLessonScreen({route, navigation}) {
         setNewLesson({ name: name, content: content, cliparray: duplicate});
         console.log(duplicate);
 
-        await axios.post('http://192.168.1.142:4000/api/uploadlesson', newLesson);
+        await axios.post('http://192.168.43.218:4000/api/uploadlesson', newLesson);
         showSuccessAlert();
       };
 
@@ -144,7 +144,7 @@ function AdminAddLessonScreen({route, navigation}) {
       //   const deleteTarget = {
       //       _id: movieData._id
       //   }
-      //   await axios.post('http://192.168.1.142:4000/api/deletemovie', deleteTarget);
+      //   await axios.post('http://192.168.43.218:4000/api/deletemovie', deleteTarget);
       //   navigation.push('Admin Movie List');
       // };
 
@@ -153,9 +153,9 @@ function AdminAddLessonScreen({route, navigation}) {
 
             clipId: clips
         }
-        await axios.post('http://192.168.1.142:4000/api/addclip', newClip);
+        await axios.post('http://192.168.43.218:4000/api/addclip', newClip);
         await axios
-        .post("http://192.168.1.142:4000/api/fetchmovieclip", fetchMovie)
+        .post("http://192.168.43.218:4000/api/fetchmovieclip", fetchMovie)
         .then(response => {setClipData(response.data)});
       };
 
@@ -165,9 +165,9 @@ function AdminAddLessonScreen({route, navigation}) {
 
             clipId: item._id
         }
-        await axios.post('http://192.168.1.142:4000/api/removeclip', removeClip);
+        await axios.post('http://192.168.43.218:4000/api/removeclip', removeClip);
         await axios
-        .post("http://192.168.1.142:4000/api/fetchmovieclip", fetchMovie)
+        .post("http://192.168.43.218:4000/api/fetchmovieclip", fetchMovie)
         .then(response => {setClipData(response.data)});
       };
 

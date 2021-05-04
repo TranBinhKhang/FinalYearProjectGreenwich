@@ -19,7 +19,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 
 import Spinner from 'react-native-loading-spinner-overlay';
 
-const homenetwork = 'http://192.168.1.142:4000/api/clips';
+const homenetwork = 'http://192.168.43.218:4000/api/clips';
 
 function AdminMovieDetailScreen({route, navigation}) {
     const video = React.useRef(null);
@@ -62,10 +62,10 @@ function AdminMovieDetailScreen({route, navigation}) {
 
       getPermission();
       axios
-        .post("http://192.168.1.142:4000/api/fetchmovieclip", fetchMovie)
+        .post("http://192.168.43.218:4000/api/fetchmovieclip", fetchMovie)
         .then(response => {setClipData(response.data)});
       axios
-        .get("http://192.168.1.142:4000/api/cliplist")
+        .get("http://192.168.43.218:4000/api/cliplist")
         .then(response => {setAllClips(response.data)});
     }, []);
 
@@ -101,7 +101,7 @@ function AdminMovieDetailScreen({route, navigation}) {
               _id: movieData._id,
               image: res.data.secure_url
             }
-            axios.post('http://192.168.1.142:4000/api/updatemoviepicture', imagedata);
+            axios.post('http://192.168.43.218:4000/api/updatemoviepicture', imagedata);
             setSpinner(false);
         }).catch(err =>{
 console.log(err)
@@ -112,7 +112,7 @@ console.log(err)
 
       const updateMovie = async () => {
         setUpdatedMovie({ _id: movieData._id, movieName: movieName, desc: desc, genre: genre})
-        await axios.post('http://192.168.1.142:4000/api/updatemovie', updatedMovie);
+        await axios.post('http://192.168.43.218:4000/api/updatemovie', updatedMovie);
         showSuccessAlert();
       };
 
@@ -120,7 +120,7 @@ console.log(err)
         const deleteTarget = {
             _id: movieData._id
         }
-        await axios.post('http://192.168.1.142:4000/api/deletemovie', deleteTarget);
+        await axios.post('http://192.168.43.218:4000/api/deletemovie', deleteTarget);
         navigation.push('Admin Movie List');
       };
 
@@ -129,9 +129,9 @@ console.log(err)
             movieId: movieData._id,
             clipId: itemValue
         }
-        await axios.post('http://192.168.1.142:4000/api/addclip', newClip);
+        await axios.post('http://192.168.43.218:4000/api/addclip', newClip);
         await axios
-        .post("http://192.168.1.142:4000/api/fetchmovieclip", fetchMovie)
+        .post("http://192.168.43.218:4000/api/fetchmovieclip", fetchMovie)
         .then(response => {setClipData(response.data)});
       };
 
@@ -141,9 +141,9 @@ console.log(err)
             movieId: movieData._id,
             clipId: item._id
         }
-        await axios.post('http://192.168.1.142:4000/api/removeclip', removeClip);
+        await axios.post('http://192.168.43.218:4000/api/removeclip', removeClip);
         await axios
-        .post("http://192.168.1.142:4000/api/fetchmovieclip", fetchMovie)
+        .post("http://192.168.43.218:4000/api/fetchmovieclip", fetchMovie)
         .then(response => {setClipData(response.data)});
       };
 
