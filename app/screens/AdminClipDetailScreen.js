@@ -30,7 +30,8 @@ function AdminClipDetailScreen({route, navigation}) {
     const [clipName, setClipName] = useState(route.params.clipName);
     const [content, setContent] = useState(route.params.content);
     const [lessonId, setLessonId] = useState(route.params.lessonId);
-    const [itemIndex, setItemIndex] = useState('0')
+    const [itemIndex, setItemIndex] = useState('0');
+    const [data, setData] = useState(route.params.data)
     const clipData = route.params;
     const [clipCurrentLesson, setClipCurrentLesson] = useState([]); //get the current lesson of the clip in the database
     const [lessonChanged, setLessonChanged] = useState(false);
@@ -40,7 +41,7 @@ function AdminClipDetailScreen({route, navigation}) {
       _id: route.params._id,
       clipName: clipName,
       content: content,
-      data: route.params.data,
+      data: data,
       lessonId: lessonId
     });
 
@@ -112,6 +113,7 @@ function AdminClipDetailScreen({route, navigation}) {
             resource_type: 'video'
           })
           .then(res => {console.log(res.data.secure_url);
+                        setData(res.data.secure_url);
                         setNewClip({ _id: clipData._id, data: res.data.secure_url, clipName: clipName, content: content, lessonId: lessonId});
                       setSpinner(false)})
           .catch(err =>{
@@ -122,7 +124,6 @@ function AdminClipDetailScreen({route, navigation}) {
 
       const uploadVideo = async () => {
         try {
-        setNewClip({ _id: clipData._id, clipName: clipName, content: content, lessonId: lessonId})
         await axios.post('http://192.168.43.218:4000/api/updateclip', newClip);
         showSuccessAlert()
       }catch {console.log('ERROR')}
@@ -193,7 +194,7 @@ function AdminClipDetailScreen({route, navigation}) {
             borderWidth={1}
             height={40}
             borderColor='#841584'
-            onChangeText={text => {setClipName(text); setNewClip({ _id: clipData._id, clipName: text, content: content, lessonId: lessonId})}}
+            onChangeText={text => {setClipName(text); setNewClip({ _id: clipData._id, clipName: text, content: content, lessonId: lessonId, data: data})}}
             />
 
             <TextInput
@@ -207,14 +208,14 @@ function AdminClipDetailScreen({route, navigation}) {
             height={40}
             marginTop={10}
             borderColor='#7442c8'           
-            onChangeText={text => {setContent(text); setNewClip({ _id: clipData._id, clipName: clipName, content: text, lessonId: lessonId})}} 
+            onChangeText={text => {setContent(text); setNewClip({ _id: clipData._id, clipName: clipName, content: text, lessonId: lessonId, data: data})}} 
             />
             
             {lessonData && <Picker
                 selectedValue={lessonData}
     
                 onValueChange={(itemValue, itemIndex) => {setLessonId(itemValue); setLessonChanged(true);
-                setItemIndex(itemIndex - 1); setNewClip({ _id: clipData._id, clipName: clipName, content: content, lessonId: itemValue})}} >
+                setItemIndex(itemIndex - 1); setNewClip({ _id: clipData._id, clipName: clipName, content: content, lessonId: itemValue, data: data})}} >
                 <Picker.Item label={'Please select a lesson'} value={null} />
                 { lessonData.map((item, key)=>(
                 <Picker.Item label={item.name} value={item._id} key={key} />)
