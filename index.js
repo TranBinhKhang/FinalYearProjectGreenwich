@@ -325,6 +325,17 @@ async function addUserTest(email, password, userName){ //this is a test function
                 model: 'Clip'
             }
         });
+        const dummyData = [ //null response crashes the app. Sending dummy data to prevent this.
+            {_id: "41224d776a326fb40f000001", //this id is a fake id.
+            clipName: "You have watched no movie related to this lesson",
+            content: "Please add some movies on Movie List below",
+            data: "https://res.cloudinary.com/daekmobzf/video/upload/v1618218015/yt1s.com_-_video_placeholder_v144P_sgs82l.mp4", //this is free sample video
+            lessonId: "41224d776a326fb40f000001",
+            __v: 0}
+        ]
+
+        if (userMovie.watchedMovie.length === 0) return res.send(dummyData); //if user has no movie send dummy
+
         var merged = []; // merge all the clips arrays in watchedMovie into one arrays
             for (var i = 0; i < userMovie.watchedMovie.length; i++) {
                 merged = merged.concat(userMovie.watchedMovie[i].clips);
@@ -341,14 +352,7 @@ async function addUserTest(email, password, userName){ //this is a test function
                 console.log('logged', duplicate[i].lessonId);
             }
         }
-        const dummyData = [ //null response crashes the app. Sending dummy data to prevent this.
-            {_id: "41224d776a326fb40f000001", //this id is a fake id.
-            clipName: "You have watched no movie related to this lesson",
-            content: "Please add some movies on Movie List below",
-            data: "https://res.cloudinary.com/daekmobzf/video/upload/v1618218015/yt1s.com_-_video_placeholder_v144P_sgs82l.mp4", //this is free sample video
-            lessonId: "41224d776a326fb40f000001",
-            __v: 0}
-        ]
+
         res.send(finalresult.length === 0 ? dummyData : finalresult) //if finalresult is empty, sending dummy data instead
       });
     
@@ -395,7 +399,7 @@ async function addUserTest(email, password, userName){ //this is a test function
             if (!emailExist && !(validation.error)) 
             {
             const result = await user.save();
-            const token = jwt.sign({ _id: user._id, email: user.email, userName: user.userName, isAdmin: user.isAdmin, isBanned: userExist.isBanned }, config.get('jwtPrivateKey'));
+            const token = jwt.sign({ _id: user._id, email: user.email, userName: user.userName, isAdmin: user.isAdmin, isBanned: user.isBanned }, config.get('jwtPrivateKey'));
             res
             .header('x-auth-token', token)
             .header('access-control-expose-headers', 'x-auth-token').send({
