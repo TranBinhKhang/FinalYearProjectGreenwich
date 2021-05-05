@@ -162,7 +162,7 @@ console.log(err)
       const showSuccessAlert = () =>
         Alert.alert(
           "Note",
-          "This clip has been successfully updated",
+          "This movie has been successfully updated",
         [
         {
           text: "Ok",
@@ -210,7 +210,7 @@ console.log(err)
             defaultValue={movieData.movieName}
             autoCapitalize="none"
             autoCorrect={false}
-            placeholder="Clip name"
+            placeholder="Movie name"
             borderWidth={1}
             marginTop={-10}
             height={40}
